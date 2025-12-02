@@ -1,0 +1,9 @@
+Flask
+Flask-RESTful
+Flask-SQLAlchemy
+Flask-CORS
+bcrypt
+python-dotenv
+numpy
+pandas
+scikit-learn

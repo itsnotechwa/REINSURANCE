@@ -1,0 +1,12 @@
+
+Backend/.venv/
+
+Backend/.env/
+
+Backend/__pycache__/
+
+Backend/*.pyc
+
+
+Machine-Learning/.mlvenv/
+
