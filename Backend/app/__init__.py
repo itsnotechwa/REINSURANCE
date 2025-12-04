@@ -12,15 +12,39 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
-    app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'reinsurance.db')}"
+    # Database configuration - use PostgreSQL on Railway, SQLite locally
+    database_url = os.getenv("DATABASE_URL")
+    if database_url:
+        # Railway provides DATABASE_URL for PostgreSQL
+        # Convert postgres:// to postgresql:// for SQLAlchemy
+        if database_url.startswith("postgres://"):
+            database_url = database_url.replace("postgres://", "postgresql://", 1)
+        app.config['SQLALCHEMY_DATABASE_URI'] = database_url
+    else:
+        # Local development - use SQLite
+        basedir = os.path.abspath(os.path.dirname(os.path.dirname(__file__)))
+        app.config['SQLALCHEMY_DATABASE_URI'] = f"sqlite:///{os.path.join(basedir, 'reinsurance.db')}"
+    
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "dev-secret-key")
     app.config['SESSION_COOKIE_HTTPONLY'] = True
-    app.config['SESSION_COOKIE_SECURE'] = False
+    app.config['SESSION_COOKIE_SECURE'] = os.getenv("FLASK_ENV") == "production"
     app.config['SESSION_COOKIE_SAMESITE'] = "Lax"
 
-    CORS(app, supports_credentials=True, origins=['http://localhost:5173', 'http://localhost:3000'])
+    # CORS configuration - allow frontend origin from environment variable
+    frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
+    allowed_origins = [
+        frontend_url,
+        'http://localhost:5173',
+        'http://localhost:3000',
+        'https://localhost:5173',
+    ]
+    # Add Vercel preview URLs if provided
+    vercel_url = os.getenv("VERCEL_URL")
+    if vercel_url:
+        allowed_origins.append(f"https://{vercel_url}")
+    
+    CORS(app, supports_credentials=True, origins=allowed_origins)
 
     db.init_app(app)
 
