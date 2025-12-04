@@ -63,6 +63,16 @@ def create_app():
     app.register_blueprint(ml_bp, url_prefix='/ml')
     app.register_blueprint(pdf_bp, url_prefix='/convert')  # <-- register PDF blueprint
 
+    # Health check route for Railway/deployment monitoring
+    @app.route('/')
+    @app.route('/health')
+    def health_check():
+        return {
+            'status': 'healthy',
+            'service': 'Reinsurance Claims Management API',
+            'version': '1.0.0'
+        }, 200
+
     # Create tables
     with app.app_context():
         db.create_all()
