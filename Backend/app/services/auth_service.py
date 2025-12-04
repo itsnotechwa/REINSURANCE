@@ -53,6 +53,7 @@ def authenticate(email: str, password: str) -> dict:
     session['email'] = user.email
     session['role'] = user.role.value
     session.permanent = True  # Use permanent session
+    session.modified = True  # Mark session as modified to ensure it's saved
 
     return {
         'message': 'Login successful',
@@ -68,12 +69,21 @@ def logout():
 
 def get_current_user():
     """Get the current user from session."""
+    import logging
+    logger = logging.getLogger(__name__)
+    
+    # Debug: log session contents
+    logger.debug(f"Session contents: {dict(session)}")
+    logger.debug(f"Session has user_id: {'user_id' in session}")
+    
     user_id = session.get('user_id')
     if not user_id:
+        logger.warning("No user_id in session - user not authenticated")
         raise Unauthorized("Not authenticated")
     
     user = User.query.get(user_id)
     if not user:
+        logger.warning(f"User with id {user_id} not found in database")
         raise Unauthorized("User not found")
     
     return user

@@ -32,6 +32,7 @@ def create_app():
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.config['SECRET_KEY'] = os.getenv("SECRET_KEY", "dev-secret-key")
     app.config['SESSION_COOKIE_HTTPONLY'] = True
+    app.config['SESSION_COOKIE_PATH'] = '/'
     # For cross-origin requests (Vercel to Railway), need SameSite=None and Secure=True
     # Check if we're in production (HTTPS) and have a frontend URL (cross-origin)
     is_production = os.getenv("FLASK_ENV") == "production"
@@ -41,10 +42,13 @@ def create_app():
         # Cross-origin production: SameSite=None requires Secure=True
         app.config['SESSION_COOKIE_SECURE'] = True
         app.config['SESSION_COOKIE_SAMESITE'] = "None"
+        # Don't set domain - let browser handle it for cross-origin
+        app.config['SESSION_COOKIE_DOMAIN'] = None
     else:
         # Local development: SameSite=Lax is fine
         app.config['SESSION_COOKIE_SECURE'] = False
         app.config['SESSION_COOKIE_SAMESITE'] = "Lax"
+        app.config['SESSION_COOKIE_DOMAIN'] = None
 
     # CORS configuration - allow frontend origin from environment variable
     frontend_url = os.getenv("FRONTEND_URL", "http://localhost:5173")
