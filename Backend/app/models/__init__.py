@@ -32,10 +32,10 @@ class User(db.Model):
     __tablename__ = 'user'
 
     id = Column(Integer, primary_key=True)
-    email = Column(String, unique=True, nullable=False)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    password_hash = Column(String, nullable=False)
+    email = Column(String(255), unique=True, nullable=False)
+    first_name = Column(String(100), nullable=False)
+    last_name = Column(String(100), nullable=False)
+    password_hash = Column(String(255), nullable=False)
     role = Column(Enum(UserRole), nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 
@@ -56,7 +56,7 @@ class Claim(db.Model):
 
     id = Column(Integer, primary_key=True)
     user_id = Column(Integer, ForeignKey('user.id'), nullable=False)
-    pdf_filename = Column(String, nullable=False)
+    pdf_filename = Column(String(255), nullable=False)
     extracted_data = Column(JSON, nullable=False)
     status = Column(Enum(ClaimStatus), default=ClaimStatus.pending, nullable=False)
     created_at = Column(DateTime, default=datetime.utcnow)
@@ -69,14 +69,14 @@ class Prediction(db.Model):
     fraud_score = Column(Float, nullable=False)
     is_fraudulent = Column(Boolean, nullable=False)
     reserve_estimate = Column(Float, nullable=False)
-    model_version = Column(String, nullable=False)
+    model_version = Column(String(50), nullable=False)
 
 
 class ModelStats(db.Model):
     __tablename__ = 'model_stats'
 
     id = Column(Integer, primary_key=True)
-    model_name = Column(String, nullable=False)
+    model_name = Column(String(255), nullable=False)
     model_type = Column(Enum(ModelType), nullable=False)
     metrics = Column(JSON, nullable=False)
     status = Column(Enum(ModelStatus), default=ModelStatus.active, nullable=False)
