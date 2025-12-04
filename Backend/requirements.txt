@@ -8,6 +8,6 @@ numpy
 pandas
 scikit-learn
 gunicorn
-psycopg2-binary
+pymysql
 reportlab
 pdfplumber

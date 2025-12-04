@@ -12,12 +12,16 @@ db = SQLAlchemy()
 def create_app():
     app = Flask(__name__)
 
-    # Database configuration - use PostgreSQL on Railway, SQLite locally
+    # Database configuration - use MySQL on Railway, SQLite locally
     database_url = os.getenv("DATABASE_URL")
     if database_url:
-        # Railway provides DATABASE_URL for PostgreSQL
-        # Convert postgres:// to postgresql:// for SQLAlchemy
-        if database_url.startswith("postgres://"):
+        # Railway provides DATABASE_URL for MySQL
+        # Handle different database URL formats
+        if database_url.startswith("mysql://"):
+            # Convert mysql:// to mysql+pymysql:// for SQLAlchemy with PyMySQL driver
+            database_url = database_url.replace("mysql://", "mysql+pymysql://", 1)
+        elif database_url.startswith("postgres://"):
+            # Support PostgreSQL if needed (convert postgres:// to postgresql://)
             database_url = database_url.replace("postgres://", "postgresql://", 1)
         app.config['SQLALCHEMY_DATABASE_URI'] = database_url
     else:
