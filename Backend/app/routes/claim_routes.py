@@ -26,6 +26,10 @@ def allowed_file(filename: str) -> bool:
 
 
 class UploadClaim(Resource):
+    def options(self):
+        """Handle CORS preflight for file upload."""
+        return {}, 200
+    
     def post(self):
         try:
             user = require_auth()
