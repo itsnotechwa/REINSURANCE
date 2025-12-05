@@ -77,13 +77,16 @@ def create_app():
         allowed_origins.append(vercel_full_url)
     
     # Configure CORS - explicitly allow OPTIONS for preflight requests
+    # Note: For file uploads, browser sets Content-Type automatically with boundary
     CORS(
         app, 
         supports_credentials=True, 
         origins=allowed_origins,
         methods=['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
         allow_headers=['Content-Type', 'Authorization', 'X-Requested-With'],
-        expose_headers=['Content-Type']
+        expose_headers=['Content-Type'],
+        # Allow all headers for file uploads (multipart/form-data)
+        allow_headers_regex=r'.*'
     )
 
     db.init_app(app)
