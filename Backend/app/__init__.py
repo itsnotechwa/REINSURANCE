@@ -34,11 +34,16 @@ def create_app():
     app.config['SESSION_COOKIE_HTTPONLY'] = True
     app.config['SESSION_COOKIE_PATH'] = '/'
     # For cross-origin requests (Vercel to Railway), need SameSite=None and Secure=True
-    # Check if we're in production (HTTPS) and have a frontend URL (cross-origin)
-    is_production = os.getenv("FLASK_ENV") == "production"
-    has_frontend_url = os.getenv("FRONTEND_URL") and os.getenv("FRONTEND_URL") != "http://localhost:5173"
+    # Detect production: either FLASK_ENV=production OR we have DATABASE_URL (Railway) OR FRONTEND_URL is set
+    is_production = (
+        os.getenv("FLASK_ENV") == "production" or 
+        os.getenv("DATABASE_URL") is not None or  # Railway provides this
+        (os.getenv("FRONTEND_URL") and "localhost" not in os.getenv("FRONTEND_URL", ""))
+    )
+    has_frontend_url = os.getenv("FRONTEND_URL") and "localhost" not in os.getenv("FRONTEND_URL", "")
     
-    if is_production and has_frontend_url:
+    # Use cross-origin settings if we have a frontend URL (Vercel) or we're on Railway
+    if has_frontend_url or os.getenv("DATABASE_URL"):
         # Cross-origin production: SameSite=None requires Secure=True
         app.config['SESSION_COOKIE_SECURE'] = True
         app.config['SESSION_COOKIE_SAMESITE'] = "None"
