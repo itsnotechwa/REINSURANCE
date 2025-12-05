@@ -7,27 +7,10 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Upload, FileText, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import { api } from '@/lib/api';
 
-// ---- API helper ----
-const api = {
-  uploadClaim: async (file: File) => {
-    const formData = new FormData();
-    formData.append('file', file);
-
-    const response = await fetch('http://localhost:5000/claim/upload', {
-      method: 'POST',
-      body: formData,
-      credentials: 'include', // <-- send session cookies
-    });
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err.error || 'Upload failed');
-    }
-
-    return await response.json();
-  },
-};
+// Get API base URL from environment
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000';
 
 // CSV → PDF conversion via backend
 const convertCSVtoPDF = async (csvFile: File): Promise<File | null> => {
@@ -35,7 +18,7 @@ const convertCSVtoPDF = async (csvFile: File): Promise<File | null> => {
     const formData = new FormData();
     formData.append('file', csvFile);
 
-    const response = await fetch('http://localhost:5000/convert/csv-to-pdf', {
+    const response = await fetch(`${API_BASE_URL}/convert/csv-to-pdf`, {
       method: 'POST',
       body: formData,
       credentials: 'include', // include session in case backend needs it
