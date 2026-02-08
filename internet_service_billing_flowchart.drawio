@@ -1,0 +1,305 @@
+<mxfile host="app.diagrams.net" modified="2026-02-08T12:00:00.000Z" agent="5.0" version="24.0.0" etag="flowchart" type="device">
+  <diagram id="billing-flowchart" name="Internet Service Billing">
+    <mxGraphModel dx="1422" dy="793" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="2000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        
+        <!-- Start Node -->
+        <mxCell id="start" value="START&#xa;Billing Cycle Begins" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="40" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check for Upgrade Request -->
+        <mxCell id="check-upgrade" value="Institution&#xa;Requesting Upgrade&#xa;to Higher Bandwidth?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="650" y="160" width="300" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="check-upgrade">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Apply Discount -->
+        <mxCell id="apply-discount" value="Apply 10% Discount&#xa;on New Bandwidth Cost&#xa;&#xa;New Bill = Cost × 0.90" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="300" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-upgrade" target="apply-discount">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-yes" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="190" width="50" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Regular Bill -->
+        <mxCell id="regular-bill" value="Calculate Regular&#xa;Monthly Bill&#xa;&#xa;Bill = Standard Rate" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="300" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-upgrade" target="regular-bill">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-no" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="980" y="190" width="40" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Generate Invoice -->
+        <mxCell id="generate-invoice" value="Generate Monthly Invoice&#xa;Send to Institution&#xa;&#xa;Due: End of Current Month" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="420" width="200" height="90" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="apply-discount" target="generate-invoice">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="regular-bill" target="generate-invoice">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Wait for Payment -->
+        <mxCell id="wait-payment" value="Wait for Payment&#xa;&#xa;Deadline: Last Day&#xa;of Current Month" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="550" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="generate-invoice" target="wait-payment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Payment by Month End -->
+        <mxCell id="check-payment-month-end" value="Payment Received&#xa;by End of&#xa;Current Month?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="650" y="670" width="300" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wait-payment" target="check-payment-month-end">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Payment Successful -->
+        <mxCell id="payment-success" value="Payment Received&#xa;&#xa;Service Continues&#xa;&#xa;Account in Good Standing" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="680" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-payment-month-end" target="payment-success">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-yes2" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="980" y="700" width="50" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Apply Overdue Fine -->
+        <mxCell id="apply-fine" value="Apply Overdue Fine&#xa;&#xa;Fine = Bill × 0.15 (15%)&#xa;Total Due = Bill + Fine&#xa;&#xa;Status: OVERDUE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="820" width="200" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-payment-month-end" target="apply-fine">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-no2" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="570" y="700" width="40" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Send Overdue Notice -->
+        <mxCell id="send-notice" value="Send Overdue Notice&#xa;&#xa;Warning: Payment Required&#xa;by 10th of Next Month&#xa;or Service Will Be Disconnected" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="960" width="200" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="apply-fine" target="send-notice">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Wait for Grace Period -->
+        <mxCell id="grace-period" value="Grace Period&#xa;&#xa;Wait Until 10th Day&#xa;of Subsequent Month" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1100" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="send-notice" target="grace-period">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Payment in Grace Period -->
+        <mxCell id="check-payment-grace" value="Payment + Fine&#xa;Received by 10th&#xa;of Next Month?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1220" width="300" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge12" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="grace-period" target="check-payment-grace">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Overdue Payment Received -->
+        <mxCell id="overdue-payment-success" value="Payment + Fine Received&#xa;&#xa;Clear Overdue Status&#xa;Service Continues&#xa;&#xa;Account Restored" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1230" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge13" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-payment-grace" target="overdue-payment-success">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-yes3" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="1250" width="50" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Disconnect Service -->
+        <mxCell id="disconnect" value="DISCONNECT SERVICE&#xa;&#xa;Internet Access Terminated&#xa;&#xa;Status: DISCONNECTED&#xa;&#xa;Total Due: Bill + Fine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1380" width="200" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge14" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-payment-grace" target="disconnect">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-no3" value="NO" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="410" y="1340" width="40" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Send Disconnection Notice -->
+        <mxCell id="disconnection-notice" value="Send Disconnection Notice&#xa;&#xa;Inform Institution of:&#xa;- Disconnection&#xa;- Total Amount Due&#xa;- Reconnection Process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1520" width="200" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge15" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="disconnect" target="disconnection-notice">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Waiting for Reconnection -->
+        <mxCell id="wait-reconnection" value="Status: Disconnected&#xa;&#xa;Awaiting Payment for&#xa;Reconnection" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="350" y="1660" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge16" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="disconnection-notice" target="wait-reconnection">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Check Reconnection Payment -->
+        <mxCell id="check-reconnection-payment" value="Institution Pays&#xa;Bill + Fine&#xa;+ Reconnection Fee?" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="300" y="1780" width="300" height="100" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge17" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="wait-reconnection" target="check-reconnection-payment">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Calculate Reconnection Amount -->
+        <mxCell id="reconnection-calc" value="Verify Payment:&#xa;&#xa;Total Required =&#xa;Bill + Fine (15%)&#xa;+ Reconnection Fee (KSh 1,000)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=11;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1790" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge18" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="check-reconnection-payment" target="reconnection-calc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="label-yes4" value="YES" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="620" y="1810" width="50" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Reconnect Service -->
+        <mxCell id="reconnect" value="RECONNECT SERVICE&#xa;&#xa;Process Reconnection&#xa;Restore Internet Access&#xa;&#xa;Status: ACTIVE" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1910" width="200" height="90" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reconnection-calc" target="reconnect">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- End Success Path 1 -->
+        <mxCell id="end1" value="END&#xa;Service Active" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1050" y="810" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="payment-success" target="end1">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- End Success Path 2 -->
+        <mxCell id="end2" value="END&#xa;Service Active" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="1360" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="overdue-payment-success" target="end2">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- End Success Path 3 -->
+        <mxCell id="end3" value="END&#xa;Service Reconnected" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="700" y="2040" width="200" height="80" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="edge22" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="reconnect" target="end3">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        
+        <!-- Loop back to waiting -->
+        <mxCell id="edge23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#b85450;strokeWidth=2;dashed=1;" edge="1" parent="1" source="check-reconnection-payment" target="wait-reconnection">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="280" y="1830"/>
+              <mxPoint x="280" y="1700"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        
+        <mxCell id="label-no4" value="NO&#xa;Continue Waiting" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=11;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="190" y="1750" width="100" height="40" as="geometry"/>
+        </mxCell>
+        
+        <!-- Legend Box -->
+        <mxCell id="legend-box" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#000000;strokeWidth=2;" vertex="1" parent="1">
+          <mxGeometry x="40" y="40" width="240" height="360" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-title" value="LEGEND" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="110" y="50" width="90" height="30" as="geometry"/>
+        </mxCell>
+        
+        <!-- Legend Items -->
+        <mxCell id="legend-start" value="Start/End" style="ellipse;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="90" width="80" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-start-text" value="Start or End Point" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="150" y="95" width="120" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-process" value="Process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="140" width="80" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-process-text" value="Process/Action" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="150" y="145" width="110" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-decision" value="Decision" style="rhombus;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="190" width="80" height="50" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-decision-text" value="Decision Point" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="150" y="200" width="100" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-wait" value="Wait" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="250" width="80" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-wait-text" value="Waiting State" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="150" y="255" width="100" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-error" value="Alert/Error" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="60" y="300" width="80" height="40" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-error-text" value="Alert/Error State" style="text;html=1;align=left;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;fontSize=10;" vertex="1" parent="1">
+          <mxGeometry x="150" y="305" width="110" height="30" as="geometry"/>
+        </mxCell>
+        
+        <mxCell id="legend-note" value="KEY RULES:&#xa;• Upgrade: -10% discount&#xa;• Payment due: End of month&#xa;• Late payment: +15% fine&#xa;• Disconnection: 10th of next month&#xa;• Reconnection: KSh 1,000 fee" style="text;html=1;align=left;verticalAlign=top;resizable=0;points=[];autosize=1;strokeColor=#6c8ebf;fillColor=#dae8fc;fontSize=9;fontFamily=Courier New;" vertex="1" parent="1">
+          <mxGeometry x="50" y="350" width="220" height="80" as="geometry"/>
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
